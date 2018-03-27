@@ -1,1 +1,1 @@
---program-suffix=213 --datadir=/usr/share/autoconf213/
+--program-suffix=213 --datadir=/usr/share/autoconf213/ --infodir=/usr/share/autoconf213

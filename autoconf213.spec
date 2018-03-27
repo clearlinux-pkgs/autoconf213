@@ -4,7 +4,7 @@
 #
 Name     : autoconf213
 Version  : 2.13
-Release  : 2
+Release  : 3
 URL      : http://mirrors.kernel.org/gnu/autoconf/autoconf-2.13.tar.gz
 Source0  : http://mirrors.kernel.org/gnu/autoconf/autoconf-2.13.tar.gz
 Summary  : No detailed summary available
@@ -12,7 +12,6 @@ Group    : Development/Tools
 License  : GPL-2.0
 Requires: autoconf213-bin
 Requires: autoconf213-data
-Requires: autoconf213-doc
 Patch1: autoconf213-destdir.patch
 
 %description
@@ -42,14 +41,6 @@ Group: Data
 data components for the autoconf213 package.
 
 
-%package doc
-Summary: doc components for the autoconf213 package.
-Group: Documentation
-
-%description doc
-doc components for the autoconf213 package.
-
-
 %prep
 %setup -q -n autoconf-2.13
 %patch1 -p1
@@ -59,8 +50,8 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1522173255
-%configure --disable-static --program-suffix=213 --datadir=/usr/share/autoconf213/
+export SOURCE_DATE_EPOCH=1522173316
+%configure --disable-static --program-suffix=213 --datadir=/usr/share/autoconf213/ --infodir=/usr/share/autoconf213
 make  %{?_smp_mflags}
 
 %check
@@ -71,7 +62,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1522173255
+export SOURCE_DATE_EPOCH=1522173316
 rm -rf %{buildroot}
 %make_install
 
@@ -89,6 +80,7 @@ rm -rf %{buildroot}
 
 %files data
 %defattr(-,root,root,-)
+/usr/share/autoconf213/autoconf.info
 /usr/share/autoconf213/autoconf/acconfig.h
 /usr/share/autoconf213/autoconf/acfunctions
 /usr/share/autoconf213/autoconf/acgeneral.m4
@@ -102,7 +94,4 @@ rm -rf %{buildroot}
 /usr/share/autoconf213/autoconf/autoconf.m4f
 /usr/share/autoconf213/autoconf/autoheader.m4
 /usr/share/autoconf213/autoconf/autoheader.m4f
-
-%files doc
-%defattr(-,root,root,-)
-%doc /usr/share/info/*
+/usr/share/autoconf213/standards.info
