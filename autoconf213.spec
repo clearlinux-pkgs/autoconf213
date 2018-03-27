@@ -4,7 +4,7 @@
 #
 Name     : autoconf213
 Version  : 2.13
-Release  : 1
+Release  : 2
 URL      : http://mirrors.kernel.org/gnu/autoconf/autoconf-2.13.tar.gz
 Source0  : http://mirrors.kernel.org/gnu/autoconf/autoconf-2.13.tar.gz
 Summary  : No detailed summary available
@@ -59,8 +59,8 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1522173138
-%configure --disable-static
+export SOURCE_DATE_EPOCH=1522173255
+%configure --disable-static --program-suffix=213 --datadir=/usr/share/autoconf213/
 make  %{?_smp_mflags}
 
 %check
@@ -71,7 +71,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1522173138
+export SOURCE_DATE_EPOCH=1522173255
 rm -rf %{buildroot}
 %make_install
 
@@ -80,28 +80,28 @@ rm -rf %{buildroot}
 
 %files bin
 %defattr(-,root,root,-)
-/usr/bin/autoconf
-/usr/bin/autoheader
-/usr/bin/autoreconf
-/usr/bin/autoscan
-/usr/bin/autoupdate
-/usr/bin/ifnames
+/usr/bin/autoconf213
+/usr/bin/autoheader213
+/usr/bin/autoreconf213
+/usr/bin/autoscan213
+/usr/bin/autoupdate213
+/usr/bin/ifnames213
 
 %files data
 %defattr(-,root,root,-)
-/usr/share/autoconf/acconfig.h
-/usr/share/autoconf/acfunctions
-/usr/share/autoconf/acgeneral.m4
-/usr/share/autoconf/acheaders
-/usr/share/autoconf/acidentifiers
-/usr/share/autoconf/acmakevars
-/usr/share/autoconf/acoldnames.m4
-/usr/share/autoconf/acprograms
-/usr/share/autoconf/acspecific.m4
-/usr/share/autoconf/autoconf.m4
-/usr/share/autoconf/autoconf.m4f
-/usr/share/autoconf/autoheader.m4
-/usr/share/autoconf/autoheader.m4f
+/usr/share/autoconf213/autoconf/acconfig.h
+/usr/share/autoconf213/autoconf/acfunctions
+/usr/share/autoconf213/autoconf/acgeneral.m4
+/usr/share/autoconf213/autoconf/acheaders
+/usr/share/autoconf213/autoconf/acidentifiers
+/usr/share/autoconf213/autoconf/acmakevars
+/usr/share/autoconf213/autoconf/acoldnames.m4
+/usr/share/autoconf213/autoconf/acprograms
+/usr/share/autoconf213/autoconf/acspecific.m4
+/usr/share/autoconf213/autoconf/autoconf.m4
+/usr/share/autoconf213/autoconf/autoconf.m4f
+/usr/share/autoconf213/autoconf/autoheader.m4
+/usr/share/autoconf213/autoconf/autoheader.m4f
 
 %files doc
 %defattr(-,root,root,-)
