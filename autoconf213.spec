@@ -4,7 +4,7 @@
 #
 Name     : autoconf213
 Version  : 2.13
-Release  : 4
+Release  : 5
 URL      : http://mirrors.kernel.org/gnu/autoconf/autoconf-2.13.tar.gz
 Source0  : http://mirrors.kernel.org/gnu/autoconf/autoconf-2.13.tar.gz
 Summary  : No detailed summary available
