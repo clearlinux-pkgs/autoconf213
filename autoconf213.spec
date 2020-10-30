@@ -4,14 +4,15 @@
 #
 Name     : autoconf213
 Version  : 2.13
-Release  : 5
-URL      : http://mirrors.kernel.org/gnu/autoconf/autoconf-2.13.tar.gz
-Source0  : http://mirrors.kernel.org/gnu/autoconf/autoconf-2.13.tar.gz
+Release  : 6
+URL      : https://mirrors.kernel.org/gnu/autoconf/autoconf-2.13.tar.gz
+Source0  : https://mirrors.kernel.org/gnu/autoconf/autoconf-2.13.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
-Requires: autoconf213-bin
-Requires: autoconf213-data
+Requires: autoconf213-bin = %{version}-%{release}
+Requires: autoconf213-data = %{version}-%{release}
+Requires: autoconf213-license = %{version}-%{release}
 Patch1: autoconf213-destdir.patch
 
 %description
@@ -27,7 +28,8 @@ macro calls.
 %package bin
 Summary: bin components for the autoconf213 package.
 Group: Binaries
-Requires: autoconf213-data
+Requires: autoconf213-data = %{version}-%{release}
+Requires: autoconf213-license = %{version}-%{release}
 
 %description bin
 bin components for the autoconf213 package.
@@ -41,29 +43,48 @@ Group: Data
 data components for the autoconf213 package.
 
 
+%package license
+Summary: license components for the autoconf213 package.
+Group: Default
+
+%description license
+license components for the autoconf213 package.
+
+
 %prep
 %setup -q -n autoconf-2.13
+cd %{_builddir}/autoconf-2.13
 %patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1522173316
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1604083827
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %configure --disable-static --program-suffix=213 --datadir=/usr/share/autoconf213/ --infodir=/usr/share/autoconf213
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1522173316
+export SOURCE_DATE_EPOCH=1604083827
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/autoconf213
+cp %{_builddir}/autoconf-2.13/COPYING %{buildroot}/usr/share/package-licenses/autoconf213/ab8577d3eb0eedf3f98004e381a9cee30e7224e1
 %make_install
 
 %files
@@ -95,3 +116,7 @@ rm -rf %{buildroot}
 /usr/share/autoconf213/autoconf/autoheader.m4
 /usr/share/autoconf213/autoconf/autoheader.m4f
 /usr/share/autoconf213/standards.info
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/autoconf213/ab8577d3eb0eedf3f98004e381a9cee30e7224e1
